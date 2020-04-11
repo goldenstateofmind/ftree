@@ -1,0 +1,71 @@
+{
+  "name": "self",
+  "join_id": "a1-00",
+  "children": [
+    {
+      "name": "mother",
+      "join_id": "a2-02",
+      "children": [
+        {
+          "name": "mother's mother",
+          "children": [
+            {
+              "name": "mother's mother's mother",
+              "children": []
+            },
+            {
+              "name": "mother's mother's father",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "mother's father",
+          "children": [
+            {
+              "name": "mother's father's mother",
+              "children": []
+            },
+            {
+              "name": "mother's father's father",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "father",
+      "join_id": "a2-01",
+      "children": [
+        {
+          "name": "father's mother",
+          "children": [
+            {
+              "name": "father's mother's mother",
+              "children": []
+            },
+            {
+              "name": "father's mother's father",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "father's father",
+          "join_id": "a3-03",
+          "children": [
+            {
+              "name": "father's father's mother",
+              "children": []
+            },
+            {
+              "name": "father's father's father",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

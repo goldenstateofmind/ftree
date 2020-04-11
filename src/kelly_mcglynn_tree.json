@@ -1,0 +1,58 @@
+{
+  "name": "Peter Kelly",
+  "born": "1845",
+  "died": "1928",
+  "age": 83,
+  "location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+  "children": [
+    {
+      "name": "Mary Fallon",
+      "children": []
+    },
+    {
+      "id": "1893-x-x-Kelly-Patrick",
+      "name": "Patrick Kelly",
+      "born": "1893",
+      "birth_location": "Funshadaun / Bohabouy, Kilnadeema, Co. Galway, Ireland",
+      "residence_location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+      "died": "1964-08-14",
+      "cause_of_Death": "lung cancer",
+      "children": [
+        { "name": "Mary Kelly" },
+        { "name": "Margaret Kelly" },
+        { "name": "Peter Kelly" },
+        { "name": "Anthony (Tony) Kelly" },
+        { "name": "Patrick Kelly" },
+        {
+          "id": "1934-05-25-Kelly-Martin",
+          "name": "Martin Kelly",
+          "born": "1934-05-24",
+          "birth_location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+          "residence_location": "Martinez, CA, USA",
+          "children": [
+            { "name": "Brendan Kelly", "born": 1974 },
+            {
+              "name": "John Kelly",
+              "born": "1976-02-06",
+              "birth_location": "San Francisco, CA",
+              "residence_location": "San Francisco, CA"
+            },
+            { "name": "Martina Kelly" },
+            { "name": "Peter Kelly" }
+          ]
+        },
+        { "name": "Thomas (Tom) Kelly" },
+        { "name": "Michael (Mike) Kelly" },
+        { "name": "John (John Joe) Kelly" }
+      ]
+    },
+    {
+      "name": "Bridget Kelly",
+      "children": []
+    },
+    {
+      "name": "Thomas (Tommy) Kelly",
+      "children": []
+    }
+  ]
+}
