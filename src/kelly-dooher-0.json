@@ -1,0 +1,48 @@
+{
+  "name": "Martin Kelly",
+  "born": "1934-05-24",
+  "birth_location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+  "residence_location": "Martinez, CA, USA",
+  "children": 
+}
+
+A.1971_Kelly_Dooher = {
+    children: [
+        { "name": "Brendan Kelly", "born": "1974-12-05" },
+        {
+          "name": "John Kelly",
+          "born": "1976-02-06",
+          "birth_location": "San Francisco, CA",
+          "residence_location": "San Francisco, CA"
+        },
+        { "name": "Martina Kelly", "born": "1980-09-05" },
+        { "name": "Peter Kelly", "born": "1985-08-29" }
+      ]
+}
+
+A.people = {
+    "1934-05-25-Kelly-Martin": {
+        "name": "Martin Kelly",
+        "born": "1934-05-24",
+        "birth_location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+        "residence_location": "Martinez, CA, USA",
+        "unions": [
+            "1971-10-16-KellyDooher"
+        ],
+      },
+}
+
+A.unions = {
+    "1971-10-16-KellyDooher": {
+        "marriage_location": "Oakland, CA",
+        "marriage_date": "1971-10-16",
+        "spouse1": "1934-05-25-Kelly-Martin",
+        "spouse2": "1942-01-18-Dooher-Mary",
+        "children": [
+            "1974-12-05-Kelly-Brendan",
+            "1976-02-06-Kelly-John",
+            "1980-09-05-Kelly-Martina",
+            "1985-08-29-Kelly-Peter",
+        ]
+    }
+}

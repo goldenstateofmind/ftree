@@ -1,0 +1,22 @@
+{
+  "name": "Peter Kelly",
+  "born": "1845",
+  "died": "1928",
+  "age": 83,
+  "location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+  "children": [
+    {
+      "id": "1897-12-23-McGlynn-Bridget",
+      "name": "Bridget McGlynn",
+      "born": "1897-12-23",
+      "birth_location": "Ballinagrieve, Kilnadeema, Co. Galway, Ireland",
+      "residence_location": "Caheratrim, Kilnadeema, Co. Galway, Ireland",
+      "died": "1990-11-29",
+      "cause_of_Death": "old age"
+    },
+    {
+      "name": "Bridget Kelly",
+      "children": []
+    }
+  ]
+}
