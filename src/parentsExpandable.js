@@ -35,143 +35,140 @@ A.unionsKelly = {
 
  */
 
-fetch('parents.json')
-  .then((response) => {
-    return response.json()
-  })
-  .then((data) => {
-    var fullWidth = 3000
-    var fullHeight = 2000
-    var margin = { top: 20, right: 100, bottom: 30, left: 90 },
-      innerWidth = fullWidth - margin.left - margin.right,
-      innerHeight = fullHeight - margin.top - margin.bottom
+// fetch('parents.json')
+//   .then((response) => {
+//     return response.json()
+//   })
+//   .then((data) => {
 
-    // append the svg object to the body of the page
-    // appends a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3
-      // .select('body')
-      .select('body')
-      .append('svg')
-      .attr('width', fullWidth)
-      .attr('height', fullHeight)
+var fullWidth = 3000
+var fullHeight = 2000
+var margin = { top: 20, right: 100, bottom: 30, left: 90 },
+  innerWidth = fullWidth - margin.left - margin.right,
+  innerHeight = fullHeight - margin.top - margin.bottom
 
-    const heightMcGlynn = 380
-    const heightKelly = 650
-    const heightDooher = 650
-    const heightHannigan = 300
+// append the svg object to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3
+  // .select('body')
+  .select('body')
+  .append('svg')
+  .attr('width', fullWidth)
+  .attr('height', fullHeight)
 
-    const offsetYGeneric = 150
-    const offsetYKelly = -450
-    const offsetYDooher = 130
-    const offsetYHannigan = -200
+const heightMcGlynn = 380
+const heightKelly = 650
+const heightDooher = 650
+const heightHannigan = 300
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsKelly,
-      treeId: 'unionsKelly',
-      //   joinId: 'id',
-      fullWidth: fullWidth,
-      fullHeight: heightKelly,
-      offsetY: heightKelly + offsetYKelly,
-      classProp: 'pm',
-    })
+const offsetYGeneric = 150
+const offsetYKelly = -450
+const offsetYDooher = 130
+const offsetYHannigan = -200
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsMcGlynn,
-      treeId: 'unionsMcGlynn',
-      joinId: 'join_id',
-      fullWidth: fullWidth,
-      fullHeight: heightMcGlynn,
-      offsetY: 0,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsKelly,
+  treeId: 'unionsKelly',
+  //   joinId: 'id',
+  fullWidth: fullWidth,
+  fullHeight: heightKelly,
+  offsetY: heightKelly + offsetYKelly,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsMonaghan,
-      treeId: 'unionsMonaghan',
-      joinId: 'join_id',
-      fullWidth: fullWidth,
-      fullHeight: 200,
-      offsetY: 0,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsMcGlynn,
+  treeId: 'unionsMcGlynn',
+  joinId: 'join_id',
+  fullWidth: fullWidth,
+  fullHeight: heightMcGlynn,
+  offsetY: 0,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsShiel,
-      treeId: 'unionsShiel',
-      joinId: 'join_id',
-      fullWidth: fullWidth,
-      fullHeight: 200,
-      offsetY: heightKelly - offsetYGeneric,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsMonaghan,
+  treeId: 'unionsMonaghan',
+  joinId: 'join_id',
+  fullWidth: fullWidth,
+  fullHeight: 200,
+  offsetY: 0,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsDooher,
-      treeId: 'unionsDooher',
-      joinId: 'join_id',
-      fullWidth,
-      fullHeight: heightDooher,
-      offsetY: heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsShiel,
+  treeId: 'unionsShiel',
+  joinId: 'join_id',
+  fullWidth: fullWidth,
+  fullHeight: 200,
+  offsetY: heightKelly - offsetYGeneric,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsMcGurk,
-      treeId: 'unionsMcGurk',
-      joinId: 'join_id',
-      fullWidth: fullWidth,
-      fullHeight: 200,
-      offsetY:
-        heightKelly +
-        heightMcGlynn +
-        offsetYKelly +
-        offsetYDooher +
-        offsetYGeneric,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsDooher,
+  treeId: 'unionsDooher',
+  joinId: 'join_id',
+  fullWidth,
+  fullHeight: heightDooher,
+  offsetY: heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsHannigan,
-      treeId: 'unionsHannigan',
-      joinId: 'join_id',
-      fullWidth,
-      fullHeight: heightHannigan,
-      offsetY:
-        heightKelly +
-        heightMcGlynn +
-        heightDooher +
-        offsetYKelly +
-        offsetYDooher +
-        offsetYHannigan,
-      classProp: 'pm',
-    })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsMcGurk,
+  treeId: 'unionsMcGurk',
+  joinId: 'join_id',
+  fullWidth: fullWidth,
+  fullHeight: 200,
+  offsetY:
+    heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher + offsetYGeneric,
+  classProp: 'pm',
+})
 
-    drawNFTree({
-      parentSVG: svg,
-      data: A.unionsTemple,
-      treeId: 'unionsTemple',
-      joinId: 'join_id',
-      fullWidth: fullWidth,
-      fullHeight: 200,
-      offsetY:
-        heightKelly +
-        heightMcGlynn +
-        heightDooher +
-        offsetYKelly +
-        offsetYDooher +
-        offsetYHannigan +
-        offsetYGeneric,
-      classProp: 'pm',
-    })
-  })
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsHannigan,
+  treeId: 'unionsHannigan',
+  joinId: 'join_id',
+  fullWidth,
+  fullHeight: heightHannigan,
+  offsetY:
+    heightKelly +
+    heightMcGlynn +
+    heightDooher +
+    offsetYKelly +
+    offsetYDooher +
+    offsetYHannigan,
+  classProp: 'pm',
+})
+
+drawNFTree({
+  parentSVG: svg,
+  data: A.unionsTemple,
+  treeId: 'unionsTemple',
+  joinId: 'join_id',
+  fullWidth: fullWidth,
+  fullHeight: 200,
+  offsetY:
+    heightKelly +
+    heightMcGlynn +
+    heightDooher +
+    offsetYKelly +
+    offsetYDooher +
+    offsetYHannigan +
+    offsetYGeneric,
+  classProp: 'pm',
+})
+// })
 
 function drawNFTree({
   parentSVG,
@@ -351,6 +348,7 @@ function drawNFTree({
         var o = { x: source.x0, y: source.y0 }
         return diagonal(o, o)
       })
+    // .lower()
 
     // UPDATE
     // 15

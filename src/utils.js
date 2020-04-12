@@ -73,37 +73,41 @@ function joinCrossoverBranches() {
   var allTreeIds = [...treeHeads].map((x) => x.getAttribute('id'))
 
   allTreeIds.forEach((treeId) => {
-    var origin = document
-      .querySelector('#' + treeId)
-      .querySelector(`[data--join-id^="JOINID"]`)
-    //   .select('#' + treeId)
+    try {
+      var origin = document
+        .querySelector('#' + treeId)
+        .querySelector(`[data--join-id^="JOINID"]`)
+      //   .select('#' + treeId)
 
-    if (origin) {
-      var joinId = origin.getAttribute('data--join-id')
+      if (origin) {
+        var joinId = origin.getAttribute('data--join-id')
 
-      var originPoint = getCirclePosition(origin)
+        var originPoint = getCirclePosition(origin)
 
-      targetCircle = document.querySelector(`circle[jid="${joinId}"`)
-      targetPosition = getCirclePosition(targetCircle)
+        targetCircle = document.querySelector(`circle[jid="${joinId}"`)
+        targetPosition = getCirclePosition(targetCircle)
 
-      var groupOffset = getPathStartPoint(
-        document.querySelector('svg'),
-        document.querySelector('g#' + treeId)
-      )
-      var childX = groupOffset.x
-      var childY = groupOffset.y
+        var groupOffset = getPathStartPoint(
+          document.querySelector('svg'),
+          document.querySelector('g#' + treeId)
+        )
+        var childX = groupOffset.x
+        var childY = groupOffset.y
 
-      d3.select('#' + treeId)
-        .selectAll('.join-link')
-        .data([{ id: joinId }])
-        .enter()
-        .append('path')
-        .attr('class', `link join-link`)
-        .attr('d', (d) => {
-          return diagonalXY(originPoint, targetPosition)
-        })
-        .attr('transform', `translate(${-childX}, ${-childY})`)
-        .lower()
+        d3.select('#' + treeId)
+          .selectAll('.join-link')
+          .data([{ id: joinId }])
+          .enter()
+          .append('path')
+          .attr('class', `link join-link`)
+          .attr('d', (d) => {
+            return diagonalXY(originPoint, targetPosition)
+          })
+          .attr('transform', `translate(${-childX}, ${-childY})`)
+          .lower()
+      }
+    } catch (err) {
+      console.log('joinCrossoverBranches error', err)
     }
 
     //
