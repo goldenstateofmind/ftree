@@ -95,9 +95,9 @@ A.unionsKelly = {
                       name: 'Margaret Kelly &<br/>Nick Silk',
                       home: 'Cork',
                       children: [
-                        { name: 'Rita', birth_year: null },
+                        { name: 'Rita', birth_year: 1963 },
                         { name: 'Mary', birth_year: 1964 },
-                        { name: 'Helen', birth_year: null },
+                        { name: 'Helen', birth_year: 1967 },
                         { name: 'Sarah', birth_year: 1972 },
                       ],
                     },
@@ -114,7 +114,7 @@ A.unionsKelly = {
                       children: [
                         { name: 'Patrick', birth_year: 1961 },
                         { name: 'Maureen', birth_year: 1963 },
-                        { name: 'Carmel', birth_year: 1965 },
+                        { name: 'Carmel', birth_year: 1966 },
                         { name: 'Caroline', birth_year: 1968 },
                       ],
                     },
