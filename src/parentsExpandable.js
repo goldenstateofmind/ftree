@@ -285,6 +285,8 @@ function drawNFTree({
       .attr('height', 180)
       .attr('x', (d) => (d.children ? 16 : 16))
       .attr('y', (d) => (d.children ? 1 : -7))
+      .append('xhtml:body')
+      // .attr('xmlns', 'http://www.w3.org/1999/xhtml')
       .append('xhtml:div')
       .attr('class', 'decision')
       .html((d) => formatPersonInfo(d.data))
