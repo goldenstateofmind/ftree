@@ -289,6 +289,7 @@ function drawNFTree({
       // .attr('xmlns', 'http://www.w3.org/1999/xhtml')
       .append('xhtml:div')
       .attr('class', 'decision')
+      .style('position', 'fixed')
       .html((d) => formatPersonInfo(d.data))
 
     // UPDATE
