@@ -36,7 +36,8 @@ text {
 }
 
 .node--internal circle {
-  fill: #900;
+  /* fill: #999; */
+  fill: #f00;
 }
 
 .node--internal div {
