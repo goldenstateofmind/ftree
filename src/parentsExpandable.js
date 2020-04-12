@@ -286,6 +286,7 @@ function drawNFTree({
       .append('foreignObject')
       .attr('class', 'fo')
       .attr('width', 300)
+      .attr('height', 200)
       .attr('x', (d) => (d.children ? 6 : 6))
       .attr('y', (d) => (d.children ? 1 : -7))
       .append('xhtml:div')

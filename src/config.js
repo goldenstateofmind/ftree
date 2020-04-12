@@ -63,9 +63,10 @@ A.unionsKelly = {
       name: 'Peter Kelly &<br/>Bridget Shiel',
       home: 'Funshadaun, Kilnadeema(?), Galway',
       id: 'JOINID-18xx-Kelly-Shiel',
-      url:
-        'http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Funshadaun/1386514/',
+      url: 'http://www.census.nationalarchives.ie/reels/nai000827421/',
       url2:
+        'http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Funshadaun/1386514/',
+      url3:
         'http://www.census.nationalarchives.ie/pages/1911/Galway/Aille/Funshadaun/463525/',
       pm: 'paternal-paternal-parents',
       children: [
@@ -162,7 +163,8 @@ A.unionsMcGlynn = {
       name: 'Peter McGlynn &<br/>Mary Monahan',
       pm: 'paternal-maternal-parents',
       home: 'Caheratrim (Ballinagrieve), Kilnadeema, Galway',
-      url:
+      url: 'http://www.census.nationalarchives.ie/reels/nai002409614/',
+      url1:
         'http://www.census.nationalarchives.ie/pages/1911/Galway/Aille/Caheratrim/463497/',
       url2:
         'http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Caheratrim/1386487/',
@@ -203,7 +205,8 @@ A.unionsDooher = {
     {
       name: 'Charles Dooher &<br/>Bridget McGurk',
       id: 'JOINID-18xx-Dooher-McGurk',
-      url:
+      url: 'http://www.census.nationalarchives.ie/reels/nai003400580/',
+      url1:
         'http://www.census.nationalarchives.ie/pages/1911/Tyrone/Camus/Cavanalee/849969/',
       home: 'Cavanalee, Strabane, Tyrone',
       pm: 'maternal-paternal-parents',
@@ -324,7 +327,8 @@ A.unionsHannigan = {
       home: 'Magherahee, Castlefinn, then Cottown, Raphoe, Donegal',
       father: 'John, born: 1911-35 = 1876',
       mother: 'Sarah, born: 1911-34 = 1877',
-      url:
+      url: 'http://www.census.nationalarchives.ie/reels/nai002127102/',
+      url1:
         'http://www.census.nationalarchives.ie/pages/1911/Donegal/Raphoe/Cottown/506398/',
       children: [
         {
