@@ -20,12 +20,9 @@ text {
   stroke-opacity: 0.5;
 }
 
-foreignObject {
-  /* width: 180px;
-  height: 20px;
-  max-width: 180px; */
+/* foreignObject {
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-}
+} */
 
 .node circle {
   fill: #bbb;
@@ -52,11 +49,6 @@ foreignObject {
   stroke-opacity: 0.9;
   stroke-width: 1.5px;
 }
-/* 
-.fo {
-  border: 0px dotted #2af;
-  height: 120px;
-} */
 
 .decision {
   border: 0px dotted #f80;
