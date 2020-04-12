@@ -2,7 +2,7 @@
 // http://www.census.nationalarchives.ie/pages/1911/Tyrone/Camus/Cavanalee/849969/
 // https://stackoverflow.com/questions/31245751/how-do-you-create-a-family-tree-in-d3-js
 
-const GENERATION_WIDTH = 180
+const GENERATION_WIDTH = 280
 const duration = 750
 var i = 0
 
@@ -211,8 +211,9 @@ function drawNFTree({
   root.y0 = 0
 
   // Collapse after the second level
-  console.log(root)
-  //   root.children.forEach(collapse)
+  if (root.children) {
+    // root.children.forEach(collapse)
+  }
 
   update(root, joinId)
   // First set the parent object in each data object:
@@ -235,7 +236,6 @@ function drawNFTree({
 
     //0
     var treeData = treemap(root)
-    console.log('update, joinId', joinId)
 
     // 1
     var nodes = treeData.descendants()
@@ -255,40 +255,35 @@ function drawNFTree({
       .append('g')
       .attr(
         'class',
-        'node'
-        // (d) => 'node' + (d.children ? ' node--internal' : ' node--leaf')
+        (d) => 'node' + (d.children ? ' node--internal' : ' node--leaf')
       )
-      // .attr('transform', d => 'translate(' + d.y + ',' + d.x + ')')
       .attr('transform', (d) => {
-        // var translateX = d.y
-        // var translateY = d.x
         var translateX = source.y0
         var translateY = source.x0
         return 'translate(' + translateX + ',' + translateY + ')'
       })
-      .on('click', click)
 
     // adds the circle to the node
     // 5
     nodeEnter
       .append('circle')
-      .attr('class', 'node')
-      .attr('r', 1e-6)
-      //   .style('fill', function (d) {
-      //     return d._children ? 'lightsteelblue' : '#fff'
-      //   })
+      .attr(
+        'class',
+        (d) => 'node' + (d.children ? ' node--internal' : ' node--leaf')
+      )
+      .attr('r', 4)
       .attr('jid', (d) => d.data.id || 'nil')
       .attr('data--join-id', (d) => d.data[joinId] || null)
-    //   .attr('r', 4)
+      .on('click', click)
 
     // adds the text to the node
     // 6
     nodeEnter
       .append('foreignObject')
       .attr('class', 'fo')
-      .attr('width', 300)
-      .attr('height', 200)
-      .attr('x', (d) => (d.children ? 6 : 6))
+      .attr('width', 180)
+      .attr('height', 180)
+      .attr('x', (d) => (d.children ? 16 : 16))
       .attr('y', (d) => (d.children ? 1 : -7))
       .append('xhtml:div')
       .attr('class', 'decision')
@@ -302,12 +297,17 @@ function drawNFTree({
     // 8
     nodeUpdate
       .transition()
+      // .delay(function (d, i) {
+      //   var pseudoYear = d.data.birth_year || 1800
+      //   return pseudoYear * 3
+      // })
       .duration(duration)
       .attr('transform', (d) => 'translate(' + d.y + ',' + d.x + ')')
 
     // Update the node attributes and style
     // 9
-    nodeUpdate.select('circle.node').attr('r', 5).attr('cursor', 'pointer')
+    // nodeUpdate.select('circle.node').attr('r', 4).attr('cursor', 'pointer')
+    // .raise()
 
     // Remove any exiting nodes
     // 10
@@ -356,100 +356,17 @@ function drawNFTree({
     // 16
     linkUpdate
       .transition()
+      // .delay(function (d, i) {
+      //   var pseudoYear = d.data.birth_year || 1800
+      //   return pseudoYear * 3
+      // })
       .duration(duration)
       .attr('d', function (d) {
         return diagonal(d, d.parent)
       })
       .on('end', (x) => {
         joinCrossoverBranches()
-        // console.log(x.data)
-        if (x.parent) {
-          if (x.parent.data.name === 'Bridget Shiel') {
-            // console.log(x.parent.data)
-          }
-        }
-        // console.log(joinId)
-        // Father's child(ren) is the marriage, which has the "jid"
-        // Mother's child(ren) is empty; mother has the "join_id"
-        if (x.parent.data.jid) {
-          console.log('jid', x.parent.data)
-        }
-        if (x.parent.data.join_id) {
-          console.log('join_id', x.parent.data.join_id)
-          // origin:
-          // <circle class="node" r="5" jid="nil" data--join-id="JOINID-18xx-Kelly-Shiel" cursor="pointer"></circle>
-          // target:
-          // <circle class="node" r="5" jid="JOINID-18xx-Kelly-Shiel" cursor="pointer"></circle>
-
-          var origin = document
-            .querySelector('#' + treeId)
-            .querySelector(`[data--join-id^="JOINID"]`)
-          //   .select('#' + treeId)
-
-          // var joinId = originPoint.attr('data--join-id')
-          var joinId = origin.getAttribute('data--join-id')
-          console.log('joinId', joinId)
-
-          var parentSVG = document.querySelector('svg')
-          // var d3svg = d3.select('svg')
-
-          var originPoint = getCirclePosition(origin)
-          // originPoint = { x: 610 + 90, y: 215 + 420 }
-          console.log('path start point', originPoint)
-
-          targetCircle = document.querySelector(`circle[jid="${joinId}"`)
-          //   targetCircle = document.querySelector('circle#' + joinId)
-          console.log('targetCircle', targetCircle)
-
-          targetPosition = getCirclePosition(targetCircle)
-
-          // debugger
-
-          d3.select('#' + treeId)
-            .selectAll('.join-link')
-            .data([{ id: joinId }])
-            .enter()
-            .append('path')
-            .attr('class', `link join-link`)
-            .attr('d', (d) => {
-              console.log(d)
-              console.log(originPoint)
-              console.log(targetPosition)
-              return diagonalXY(originPoint, targetPosition)
-            })
-            //   .attr('d', diagonalYX(originPoint, targetPosition))
-            // .attr('transform', `translate(${groupOffset.x}, -${groupOffset.y})`)
-            .attr(
-              'transform',
-              `translate(${-childX}, ${-childY})`
-              // `translate(${-margin.left}, ${-(margin.top + 2 * fullHeight)})`
-            )
-            .lower()
-        }
-
-        //update(newData)
       })
-
-    //   linkUpdate
-    //   .transition()
-    //   .duration(duration)
-    //   .attr('d', function (d) {
-    //     return diagonal(d, d.parent)
-    //   })
-    //   .end((x) => {
-    //     console.log(this)
-    //     console.log(x)
-    //     console.log(x)
-    //     console.log('at linkUpdate.end: joinId: ', joinId)
-    //   })
-    //   .then(() => {
-    //     console.log(this)
-    //     console.log(joinId)
-    //     console.log(source)
-    //     console.log('at linkUpdate.end.then: joinId: ')
-    //     if (joinId) debugger
-    //     joinPaths(joinId)
-    //   })
 
     // Remove any exiting links
     // 17
@@ -463,56 +380,6 @@ function drawNFTree({
       })
       .remove()
 
-    function joinPaths() {
-      // function joinPaths(joinId) {
-      //   if (joinId) {
-      console.log(treeId, joinId)
-      var origin = document
-        .querySelector('#' + treeId)
-        .querySelector(`[data--join-id^="JOINID"]`)
-      //   .select('#' + treeId)
-
-      // var joinId = originPoint.attr('data--join-id')
-      var joinId = origin.getAttribute('data--join-id')
-      console.log('joinId', joinId)
-
-      var parentSVG = document.querySelector('svg')
-      // var d3svg = d3.select('svg')
-
-      var originPoint = getCirclePosition(origin)
-      // originPoint = { x: 610 + 90, y: 215 + 420 }
-      console.log('path start point', originPoint)
-
-      targetCircle = document.querySelector(`circle[jid="${joinId}"`)
-      //   targetCircle = document.querySelector('circle#' + joinId)
-      console.log('targetCircle', targetCircle)
-
-      targetPosition = getCirclePosition(targetCircle)
-
-      // debugger
-
-      d3.select('#' + treeId)
-        .selectAll('.join-link')
-        .data([{ id: joinId }])
-        .enter()
-        .append('path')
-        .attr('class', `link join-link`)
-        .attr('d', (d) => {
-          console.log(d)
-          console.log(originPoint)
-          console.log(targetPosition)
-          return diagonalXY(originPoint, targetPosition)
-        })
-        //   .attr('d', diagonalYX(originPoint, targetPosition))
-        // .attr('transform', `translate(${groupOffset.x}, -${groupOffset.y})`)
-        .attr(
-          'transform',
-          `translate(${-childX}, ${-childY})`
-          // `translate(${-margin.left}, ${-(margin.top + 2 * fullHeight)})`
-        )
-        .lower()
-      //   }
-    }
     // Store the old positions for transition.
     nodes.forEach(function (d) {
       d.x0 = d.x
@@ -532,6 +399,7 @@ function drawNFTree({
 
     // Toggle children on click.
     function click(d) {
+      console.log('click', d)
       if (d.children) {
         d._children = d.children
         d.children = null

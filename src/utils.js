@@ -70,9 +70,7 @@ function getPathStartPoint(parentSVG, element) {
 function joinCrossoverBranches() {
   // get all the tree heads and their ids
   var treeHeads = document.querySelectorAll('g.tree-head')
-  console.log('treeHeads', treeHeads)
   var allTreeIds = [...treeHeads].map((x) => x.getAttribute('id'))
-  console.log('allTreeIds', allTreeIds)
 
   allTreeIds.forEach((treeId) => {
     var origin = document
