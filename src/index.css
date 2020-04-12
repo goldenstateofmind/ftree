@@ -21,14 +21,16 @@ text {
 }
 
 foreignObject {
-  width: 300px;
+  width: 180;
   height: 20px;
-  max-width: 500px;
+  max-width: 180px;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .node circle {
-  fill: #ccc;
+  fill: #bbb;
+  cursor: pointer;
+  pointer-events: all;
 }
 
 *,
@@ -37,16 +39,16 @@ foreignObject {
 }
 
 .node--internal circle {
-  fill: #777;
+  fill: #999;
 }
 
-.node--internal text {
+.node--internal div {
   text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
 }
 
 .link {
   fill: none;
-  stroke: #ddd;
+  stroke: #ccc;
   stroke-opacity: 0.9;
   stroke-width: 1.5px;
 }
@@ -108,20 +110,3 @@ rect.svg-total-rect {
 .target {
   fill: purple;
 }
-
-/* 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-
-.node text {
-  font: 12px sans-serif;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-} */

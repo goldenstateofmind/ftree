@@ -2,7 +2,7 @@
 // http://www.census.nationalarchives.ie/pages/1911/Tyrone/Camus/Cavanalee/849969/
 // https://stackoverflow.com/questions/31245751/how-do-you-create-a-family-tree-in-d3-js
 
-const GENERATION_WIDTH = 180
+const GENERATION_WIDTH = 380
 const duration = 750
 
 /* 
