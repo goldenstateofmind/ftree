@@ -283,13 +283,14 @@ function drawNFTree({
       .attr('class', 'fo')
       .attr('width', '180')
       .attr('height', '180')
+      .style('position', 'relative')
       .attr('x', (d) => (d.children ? '16' : '16'))
       .attr('y', (d) => (d.children ? '1' : '-7'))
       .append('xhtml:body')
       // .attr('xmlns', 'http://www.w3.org/1999/xhtml')
       .append('xhtml:div')
       .attr('class', 'decision')
-      .style('position', 'fixed')
+      .style('position', 'relative')
       .html((d) => formatPersonInfo(d.data))
 
     // UPDATE
