@@ -77,27 +77,27 @@ fetch('parents.json')
       classProp: 'pm',
     })
 
-    // drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsMcGlynn,
-    //   treeId: 'unionsMcGlynn',
-    //   joinId: 'join_id',
-    //   fullWidth: fullWidth,
-    //   fullHeight: heightMcGlynn,
-    //   offsetY: 0,
-    //   classProp: 'pm',
-    // })
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsMcGlynn,
+      treeId: 'unionsMcGlynn',
+      joinId: 'join_id',
+      fullWidth: fullWidth,
+      fullHeight: heightMcGlynn,
+      offsetY: 0,
+      classProp: 'pm',
+    })
 
-    // drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsMonaghan,
-    //   treeId: 'unionsMonaghan',
-    //   joinId: 'join_id',
-    //   fullWidth: fullWidth,
-    //   fullHeight: 200,
-    //   offsetY: 0,
-    //   classProp: 'pm',
-    // })
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsMonaghan,
+      treeId: 'unionsMonaghan',
+      joinId: 'join_id',
+      fullWidth: fullWidth,
+      fullHeight: 200,
+      offsetY: 0,
+      classProp: 'pm',
+    })
 
     drawNFTree({
       parentSVG: svg,
@@ -110,70 +110,67 @@ fetch('parents.json')
       classProp: 'pm',
     })
 
-    // drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsDooher,
-    //   treeId: 'unionsDooher',
-    //   joinId: 'join_id',
-    //   fullWidth,
-    //   fullHeight: heightDooher,
-    //   offsetY: heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher,
-    //   classProp: 'pm',
-    // })
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsDooher,
+      treeId: 'unionsDooher',
+      joinId: 'join_id',
+      fullWidth,
+      fullHeight: heightDooher,
+      offsetY: heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher,
+      classProp: 'pm',
+    })
 
-    // drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsMcGurk,
-    //   treeId: 'unionsMcGurk',
-    //   joinId: 'join_id',
-    //   fullWidth: fullWidth,
-    //   fullHeight: 200,
-    //   offsetY:
-    //     heightKelly +
-    //     heightMcGlynn +
-    //     offsetYKelly +
-    //     offsetYDooher +
-    //     offsetYGeneric,
-    //   classProp: 'pm',
-    // })
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsMcGurk,
+      treeId: 'unionsMcGurk',
+      joinId: 'join_id',
+      fullWidth: fullWidth,
+      fullHeight: 200,
+      offsetY:
+        heightKelly +
+        heightMcGlynn +
+        offsetYKelly +
+        offsetYDooher +
+        offsetYGeneric,
+      classProp: 'pm',
+    })
 
-    // drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsHannigan,
-    //   treeId: 'unionsHannigan',
-    //   joinId: 'join_id',
-    //   fullWidth,
-    //   fullHeight: heightHannigan,
-    //   offsetY:
-    //     heightKelly +
-    //     heightMcGlynn +
-    //     heightDooher +
-    //     offsetYKelly +
-    //     offsetYDooher +
-    //     offsetYHannigan,
-    //   classProp: 'pm',
-    // })
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsHannigan,
+      treeId: 'unionsHannigan',
+      joinId: 'join_id',
+      fullWidth,
+      fullHeight: heightHannigan,
+      offsetY:
+        heightKelly +
+        heightMcGlynn +
+        heightDooher +
+        offsetYKelly +
+        offsetYDooher +
+        offsetYHannigan,
+      classProp: 'pm',
+    })
 
-    //  drawNFTree({
-    //   parentSVG: svg,
-    //   data: A.unionsTemple,
-    //   treeId: 'unionsTemple',
-    //   joinId: 'join_id',
-    //   fullWidth: fullWidth,
-    //   fullHeight: 200,
-    //   offsetY:
-    //     heightKelly +
-    //     heightMcGlynn +
-    //     heightDooher +
-    //     offsetYKelly +
-    //     offsetYDooher +
-    //     offsetYHannigan +
-    //     offsetYGeneric,
-    //   classProp: 'pm',
-    // })
-
-    // drawNFTree(svg, data, 1200, 800, 'body', 'join_id', 'right-to-left')
-    // drawNFTree(svg, A.nukes['a1-00'], 300, 200, '#a2-01', 'join_id')
+    drawNFTree({
+      parentSVG: svg,
+      data: A.unionsTemple,
+      treeId: 'unionsTemple',
+      joinId: 'join_id',
+      fullWidth: fullWidth,
+      fullHeight: 200,
+      offsetY:
+        heightKelly +
+        heightMcGlynn +
+        heightDooher +
+        offsetYKelly +
+        offsetYDooher +
+        offsetYHannigan +
+        offsetYGeneric,
+      classProp: 'pm',
+    })
   })
 
 function drawNFTree({
@@ -201,6 +198,7 @@ function drawNFTree({
 
   if (treeId) {
     svgG.attr('id', treeId)
+    svgG.attr('class', 'tree-head')
   }
 
   var treemap = d3.tree().size([innerHeight, innerWidth])
@@ -232,6 +230,9 @@ function drawNFTree({
   }
 
   function update(source, joinId) {
+    // Remove any crossover branches
+    document.querySelectorAll('path.join-link').forEach((el) => el.remove())
+
     //0
     var treeData = treemap(root)
     console.log('update, joinId', joinId)
@@ -360,6 +361,7 @@ function drawNFTree({
         return diagonal(d, d.parent)
       })
       .on('end', (x) => {
+        joinCrossoverBranches()
         // console.log(x.data)
         if (x.parent) {
           if (x.parent.data.name === 'Bridget Shiel') {
@@ -530,9 +532,6 @@ function drawNFTree({
 
     // Toggle children on click.
     function click(d) {
-      console.log('click')
-      console.log('d.children', d.children)
-      console.log('d._children', d._children)
       if (d.children) {
         d._children = d.children
         d.children = null
