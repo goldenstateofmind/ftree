@@ -60,7 +60,7 @@ A.unionsKelly = {
   death_year: 1928,
   children: [
     {
-      name: 'Peter Kelly &<br/>Bridget Shiel',
+      name: 'Peter Kelly & Bridget Shiel',
       home: 'Funshadaun, Kilnadeema(?), Galway',
       id: 'JOINID-18xx-Kelly-Shiel',
       url: 'http://www.census.nationalarchives.ie/reels/nai000827421/',
@@ -80,7 +80,7 @@ A.unionsKelly = {
           children: [
             {
               pm: 'paternal-parents',
-              name: 'Patrick Kelly &<br/>Delia McGlynn',
+              name: 'Patrick Kelly & Delia McGlynn',
               id: 'JOINID-19xx-Kelly-McGlynn',
               home:
                 '<a href="https://www.google.com/maps/@53.1578899,-8.6023166,3a,75y,13.83h,86.88t/data=!3m6!1e1!3m4!1szNOlniwP5zkqEN6Xcox6Hg!2e0!7i13312!8i6656">Caheratrim</a>, Kilnadeema, Galway',
@@ -92,7 +92,7 @@ A.unionsKelly = {
                   birth_year: 1929,
                   children: [
                     {
-                      name: 'Margaret Kelly &<br/>Nick Silk',
+                      name: 'Margaret Kelly & Nick Silk',
                       home: 'Cork',
                       children: [
                         { name: 'Rita', birth_year: 1963 },
@@ -109,7 +109,7 @@ A.unionsKelly = {
                   birth_year: 1932,
                   children: [
                     {
-                      name: 'Tony Kelly &<br/>Mary ?',
+                      name: 'Tony Kelly & Mary ?',
                       home: 'Ballycoony, Loughrea, Galway',
                       children: [
                         { name: 'Patrick', birth_year: 1961 },
@@ -127,7 +127,7 @@ A.unionsKelly = {
                   children: [
                     // A.nuclear['1971-Kelly-Dooher'],
                     {
-                      name: 'Martin Kelly &<br/>Mary Dooher',
+                      name: 'Martin Kelly & Mary Dooher',
                       home: 'Martinez, Calif.',
                       id: 'JOINID-1971-Kelly-Dooher',
                       //   join_id: 'JOINID-1971-Kelly-Dooher',
@@ -160,7 +160,7 @@ A.unionsMcGlynn = {
   children: [
     {
       id: 'JOINID-18xx-McGlynn-Monaghan',
-      name: 'Peter McGlynn &<br/>Mary Monahan',
+      name: 'Peter McGlynn & Mary Monahan',
       pm: 'paternal-maternal-parents',
       home: 'Caheratrim (Ballinagrieve), Kilnadeema, Galway',
       url: 'http://www.census.nationalarchives.ie/reels/nai002409614/',
@@ -203,7 +203,7 @@ A.unionsDooher = {
   death_year: 1933,
   children: [
     {
-      name: 'Charles Dooher &<br/>Bridget McGurk',
+      name: 'Charles Dooher & Bridget McGurk',
       id: 'JOINID-18xx-Dooher-McGurk',
       url: 'http://www.census.nationalarchives.ie/reels/nai003400580/',
       url1:
@@ -230,7 +230,7 @@ A.unionsDooher = {
           death_year: 1985,
           children: [
             {
-              name: 'Leonard Dooher &<br/>Greta Hannigan',
+              name: 'Leonard Dooher & Greta Hannigan',
               id: 'JOINID-19XX-Dooher-Hannigan',
               home:
                 '<a href="https://www.google.com/maps/@54.8050318,-7.4141031,3a,75y,67.08h,80.38t/data=!3m6!1e1!3m4!1s_wrKs9Piv733VNgfhxLTXw!2e0!7i13312!8i6656">8? Ligford Rd, Cavanalee</a>, Strabane, Tyrone',
@@ -249,7 +249,7 @@ A.unionsDooher = {
                   home: '',
                   children: [
                     {
-                      name: 'Paddy Dooher &<br/>Eileen Kelly',
+                      name: 'Paddy Dooher & Eileen Kelly',
                       home: 'Cavanalee, Strabane, Tyrone',
                       children: [
                         { name: 'Geraldine', birth_year: 1970 },
@@ -266,7 +266,7 @@ A.unionsDooher = {
                   home: '',
                   children: [
                     {
-                      name: 'Danny Dooher &<br/>Mary Lynch',
+                      name: 'Danny Dooher & Mary Lynch',
                       home: 'Strabane, Tyrone',
                       children: [
                         { name: 'Martin', birth_year: 1971 },
@@ -282,7 +282,7 @@ A.unionsDooher = {
                   home: '',
                   children: [
                     {
-                      name: 'John Dooher &<br/>Janice ',
+                      name: 'John Dooher & Janice ',
                       home: 'Strabane, Tyrone',
                       children: [
                         { name: 'Andrea', birth_year: 1972 },
@@ -298,7 +298,7 @@ A.unionsDooher = {
                   birth_year: 1952,
                   children: [
                     {
-                      name: 'Gerald Dooher &<br/>Rosemary MacCullough',
+                      name: 'Gerald Dooher & Rosemary MacCullough',
                       home: 'Corte Madera, Calif.',
                       children: [
                         { name: 'Seamus', birth_year: 1980 },
@@ -321,7 +321,7 @@ A.unionsHannigan = {
   birth_year: 1911 - 35,
   children: [
     {
-      name: 'John Hannigan &<br/>Sarah Temple',
+      name: 'John Hannigan & Sarah Temple',
       id: 'JOINID-18xx-Hannigan-Temple',
       pm: 'maternal-maternal-parents',
       home: 'Magherahee, Castlefinn, then Cottown, Raphoe, Donegal',

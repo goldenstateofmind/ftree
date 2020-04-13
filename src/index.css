@@ -1,9 +1,20 @@
 body,
 text {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
 }
 
+*,
+.node text {
+  font: 13px sans-serif, Menlo;
+}
+
+tspan a {
+  fill: #637fb5;
+  /* fill: #00e; */
+  stroke: white;
+  stroke-width: 0;
+}
 .fullname {
   font-weight: bold;
 }
@@ -30,14 +41,9 @@ text {
   pointer-events: all;
 }
 
-*,
-.node text {
-  font: 12px sans-serif, Menlo;
-}
-
 .node--internal circle {
-  /* fill: #999; */
-  fill: #f00;
+  fill: #999;
+  /* fill: #f00; */
 }
 
 .node--internal div {
