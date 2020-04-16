@@ -365,22 +365,23 @@ function drawNFTree({
       .attr('stroke-dasharray', function () {
         // console.log(this.getTotalLength())
         pathLength = this.getTotalLength()
-        return 1.5 * pathLength
+        return 1 * pathLength
       })
       .attr('stroke-dashoffset', function () {
         // console.log(this.getTotalLength())
         pathLength = this.getTotalLength()
-        return -1.5 * pathLength
+        return 1 * pathLength
       })
       .transition()
       .duration(TRANSIDATION)
       .on('start', function () {
         pathLength = this.getTotalLength()
         d3.active(this)
-          .attr('stroke-dashoffset', -1 * pathLength)
+          .attr('stroke-dashoffset', 1 * pathLength)
           .transition()
           .delay((d) => delayTime(d))
-          .attr('stroke-dashoffset', 0)
+          .attr('stroke-dashoffset', 2 * pathLength)
+          //   .attr('stroke-dashoffset', 0)
           .transition()
       })
       .on('end', (x) => {
