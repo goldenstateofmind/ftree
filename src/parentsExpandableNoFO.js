@@ -1,3 +1,4 @@
+// https://bl.ocks.org/schutt/91bf0ff0cba3908bf243 great tree cross-branch example with transition stroke dashoffset
 // http://www.census.nationalarchives.ie/search/results.jsp?searchMoreVisible=&census_year=1911&surname=Dooher&firstname=&county19011911=Tyrone&county1821=&county1831=&county1841=&county1851=&parish=&ward=&barony=&townland=Cavanalee&houseNumber=&ded=&age=&sex=&search=Search&ageInMonths=&relationToHead=&religion=&education=&occupation=&marriageStatus=&yearsMarried=&birthplace=&nativeCountry=&language=&deafdumb=&causeOfDeath=&yearOfDeath=&familiesNumber=&malesNumber=&femalesNumber=&maleServNumber=&femaleServNumber=&estChurchNumber=&romanCatNumber=&presbNumber=&protNumber=&marriageYears=&childrenBorn=&childrenLiving=
 // http://www.census.nationalarchives.ie/pages/1911/Tyrone/Camus/Cavanalee/849969/
 // https://stackoverflow.com/questions/31245751/how-do-you-create-a-family-tree-in-d3-js
@@ -5,35 +6,8 @@
 const GENERATION_WIDTH = 280
 const duration = 750
 var i = 0
-
-/* 
-Works, but doesn't balance patriarchy, matriarchy:
-Father's child(ren) is the marriage, which has the "jid"
-Mother's child(ren) is empty; mother has the "join_id"
-
-A.unionsMcGlynn = {
-    name: '...',
-    children: [
-        name: 'Delia',
-        join_id: 'JOINID-19xx-Kelly-McGlynn',
-        children: [],
-    ]
-}
-
-A.unionsKelly = {
-    name: '...',
-    children: [
-        name: 'Patrick',
-        children: [
-            {
-                name: 'Patrick Kelly &<br/>Delia McGlynn',
-                id: 'JOINID-19xx-Kelly-McGlynn',
-            }
-        ],
-    ]
-}
-
- */
+var DELAY = 10
+var TRANSIDATION = 1000
 
 // fetch('parents.json')
 //   .then((response) => {
@@ -201,9 +175,7 @@ function drawNFTree({
   var treemap = d3.tree().size([innerHeight, innerWidth])
 
   //  assigns the data to a hierarchy using parent-child relationships
-  var root = d3.hierarchy(data, function (d) {
-    return d.children
-  })
+  var root = d3.hierarchy(data, (d) => d.children)
   root.x0 = innerHeight / 2
   root.y0 = 0
 
@@ -215,17 +187,17 @@ function drawNFTree({
   update(root, joinId)
   // First set the parent object in each data object:
 
-  function collapse(d) {
-    if (d.children) {
-      d._children = d.children
-      //set the parent object in all the children
-      d._children.forEach(function (d1) {
-        d1.parent = d
-        collapse(d1)
-      })
-      d.children = null
-    }
-  }
+  //   function collapse(d) {
+  //     if (d.children) {
+  //       d._children = d.children
+  //       //set the parent object in all the children
+  //       d._children.forEach(function (d1) {
+  //         d1.parent = d
+  //         collapse(d1)
+  //       })
+  //       d.children = null
+  //     }
+  //   }
 
   function update(source, joinId) {
     // Remove any crossover branches
@@ -250,10 +222,16 @@ function drawNFTree({
     var nodeEnter = node
       .enter()
       .append('g')
-      .attr(
-        'class',
-        (d) => 'node' + (d.children ? ' node--internal' : ' node--leaf')
-      )
+      .attr('class', (d) => {
+        var classes = ['node']
+        if (d.children) {
+          classes.push('node--internal')
+        } else {
+          classes.push('node--leaf')
+        }
+        if (!d.parent) classes.push('tree-head')
+        return classes.join(' ')
+      })
       .attr('transform', (d) => {
         var translateX = source.y0
         var translateY = source.x0
@@ -292,22 +270,47 @@ function drawNFTree({
       .clone(true)
       .lower()
       .attr('stroke', 'white')
+      .style('stroke-width', '2')
     //   .html((d) => formatPersonInfo(d.data))
 
     // UPDATE
     // 7
     var nodeUpdate = nodeEnter.merge(node)
 
+    var yearToMilliseconds = d3
+      .scaleLinear()
+      //   .domain([1835, 1990])
+      .domain([1885, 1990])
+      .range([10, 29000])
+
     // Transition to the proper position for the node
     // 8
     nodeUpdate
+      .style('fill-opacity', 0)
       .transition()
-      // .delay(function (d, i) {
-      //   var pseudoYear = d.data.birth_year || 1800
-      //   return pseudoYear * 3
-      // })
-      .duration(duration)
+      .duration(TRANSIDATION)
       .attr('transform', (d) => 'translate(' + d.y + ',' + d.x + ')')
+      .on('start', function () {
+        d3.active(this)
+          .transition()
+          .delay(function (d, i) {
+            if (DELAY === 0) {
+              return 0
+            } else {
+              var pseudoYear =
+                d.data.birth_year || d.data.birth_year_est || 1800
+              if (pseudoYear < 1885) pseudoYear = 1885
+              var ret = 200 + Math.round(yearToMilliseconds(pseudoYear))
+              if (ret < 1000) {
+                console.log(d.data.name, d.data.birth_year, ret)
+              }
+              // console.log('----delay: ', ret)
+              return ret
+            }
+          })
+          .style('fill-opacity', 1)
+          .transition()
+      })
 
     // Update the node attributes and style
     // 9
@@ -319,7 +322,7 @@ function drawNFTree({
     var nodeExit = node
       .exit()
       .transition()
-      .duration(duration)
+      .duration(TRANSIDATION)
       .attr('transform', function (d) {
         return 'translate(' + source.y + ',' + source.x + ')'
       })
@@ -360,13 +363,54 @@ function drawNFTree({
 
     // Transition back to the parent element position
     // 16
+    var pathLength
+
+    linkUpdate
+      //   .attr('stroke-dashoffset', -1 * pathLength)
+      //   .style('stroke', '#2af')
+      .attr('d', function (d) {
+        pathLength = this.getTotalLength()
+        console.log(pathLength)
+        return diagonal(d, d.parent)
+      })
+      .attr('stroke-dasharray', function () {
+        // console.log(this.getTotalLength())
+        pathLength = this.getTotalLength()
+        return 1.5 * pathLength
+      })
+      .attr('stroke-dashoffset', function () {
+        // console.log(this.getTotalLength())
+        pathLength = this.getTotalLength()
+        return -1.5 * pathLength
+      })
+      .transition()
+      .duration(TRANSIDATION)
+      .on('start', function () {
+        pathLength = this.getTotalLength()
+        d3.active(this)
+          .attr('stroke-dashoffset', -1 * pathLength)
+          .transition()
+          .delay(function (d, i) {
+            if (DELAY === 0) {
+              return 0
+            } else {
+              var pseudoYear =
+                d.data.birth_year || d.data.birth_year_est || 1800
+              if (pseudoYear < 1885) pseudoYear = 1885
+              var ret = 2 + Math.round(yearToMilliseconds(pseudoYear))
+              if (ret < 1000) {
+                console.log(d.data.name, d.data.birth_year, ret)
+              }
+              return ret
+            }
+          })
+          .attr('stroke-dashoffset', 0)
+          .transition()
+      })
+
     linkUpdate
       .transition()
-      // .delay(function (d, i) {
-      //   var pseudoYear = d.data.birth_year || 1800
-      //   return pseudoYear * 3
-      // })
-      .duration(duration)
+      .duration(TRANSIDATION)
       .attr('d', function (d) {
         return diagonal(d, d.parent)
       })
@@ -379,7 +423,7 @@ function drawNFTree({
     var linkExit = link
       .exit()
       .transition()
-      .duration(duration)
+      .duration(TRANSIDATION)
       .attr('d', function (d) {
         var o = { x: source.x, y: source.y }
         return diagonal(o, o)
@@ -400,8 +444,6 @@ function drawNFTree({
 
       return path
     }
-
-    //
 
     // Toggle children on click.
     function click(d) {

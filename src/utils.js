@@ -67,6 +67,71 @@ function getPathStartPoint(parentSVG, element) {
   return position
 }
 
+function formatPersonInfo(obj) {
+  var lines = []
+  lines.push(`<span class="fullname">${obj.name}</span>`)
+
+  var yearsInfo = ''
+  var birthYear = obj.birth_year || obj.birth_year_est || ''
+  var deathYear = obj.death_year || obj.death_year_est || ''
+  var ageInfo = ''
+  if (birthYear && deathYear && !isNaN(birthYear) && !isNaN(deathYear)) {
+    ageInfo = '(' + (deathYear - birthYear) + ')'
+  }
+  if (birthYear != '' || deathYear != '') {
+    lines.push(`${birthYear}&ndash;${deathYear} ${ageInfo}`)
+  }
+
+  if (obj.home) lines.push(obj.home)
+  if (obj.url) lines.push(`<a href=${obj.url}>census</a>`)
+
+  lines = lines.filter((x) => x)
+  return lines.join('<br>')
+}
+
+function formatPersonInfoText(obj) {
+  var lines = []
+  lines.push(`<tspan class="fullname">${obj.name}</tspan>`)
+
+  var yearsInfo = ''
+  var birthYear = obj.birth_year || obj.birth_year_est || ''
+  var deathYear = obj.death_year || obj.death_year_est || ''
+  var ageInfo = ''
+  if (birthYear && deathYear && !isNaN(birthYear) && !isNaN(deathYear)) {
+    ageInfo = '(' + (deathYear - birthYear) + ')'
+  }
+  if (birthYear != '' || deathYear != '') {
+    lines.push(
+      `<tspan x="6" dy="1.2em">${birthYear}&ndash;${deathYear} ${ageInfo}</tspan>`
+    )
+  }
+
+  if (obj.home) lines.push(`<tspan x="6" dy="1.2em">${obj.home}</tspan>`)
+  if (obj.url)
+    lines.push(`<tspan x="6" dy="1.2em"><a href=${obj.url}>census</a></tspan>`)
+
+  //   var bornInfo = []
+  //   bornInfo.push(obj.born || null)
+  //   bornInfo.push(obj.birth_location || null)
+
+  //   bornInfo = bornInfo.filter(x => x)
+  //   if (bornInfo.length > 0) {
+  //     lines.push('born ' + bornInfo.join(', '))
+  //   }
+
+  //   var deathInfo = []
+  //   deathInfo.push(obj.died || null)
+  //   deathInfo.push(obj.cause_of_Death || null)
+
+  //   deathInfo = deathInfo.filter(x => x)
+  //   if (deathInfo.length > 0) {
+  //     lines.push('died ' + deathInfo.join(', '))
+  //   }
+
+  lines = lines.filter((x) => x)
+  return lines.join('<br>')
+}
+
 function joinCrossoverBranches() {
   // get all the tree heads and their ids
   var treeHeads = document.querySelectorAll('g.tree-head')
@@ -74,37 +139,99 @@ function joinCrossoverBranches() {
 
   allTreeIds.forEach((treeId) => {
     try {
-      var origin = document
-        .querySelector('#' + treeId)
-        .querySelector(`[data--join-id^="JOINID"]`)
-      //   .select('#' + treeId)
+      var crosslinkData = []
 
-      if (origin) {
-        var joinId = origin.getAttribute('data--join-id')
+      var originTree = document.querySelector('#' + treeId)
+      if (originTree) {
+        var origin = originTree.querySelector(`[data--join-id^="JOINID"]`)
+        //   .select('#' + treeId)
 
-        var originPoint = getCirclePosition(origin)
+        if (origin) {
+          var joinId = origin.getAttribute('data--join-id')
 
-        targetCircle = document.querySelector(`circle[jid="${joinId}"`)
-        targetPosition = getCirclePosition(targetCircle)
+          var originPoint = getCirclePosition(origin)
+          var originNode = origin.parentNode
 
-        var groupOffset = getPathStartPoint(
-          document.querySelector('svg'),
-          document.querySelector('g#' + treeId)
-        )
-        var childX = groupOffset.x
-        var childY = groupOffset.y
+          var targetCircle = document.querySelector(`circle[jid="${joinId}"`)
+          var targetPosition = getCirclePosition(targetCircle)
+          var targetNode = targetCircle.parentNode
 
-        d3.select('#' + treeId)
-          .selectAll('.join-link')
-          .data([{ id: joinId }])
-          .enter()
-          .append('path')
-          .attr('class', `link join-link`)
-          .attr('d', (d) => {
-            return diagonalXY(originPoint, targetPosition)
-          })
-          .attr('transform', `translate(${-childX}, ${-childY})`)
-          .lower()
+          var targetEntry = {
+            id: joinId,
+            data: {
+              birth_year: targetNode.__data__.data.birth_year || 1800,
+            },
+          }
+
+          // crosslinkData.push({ source: originNode, target: targetNode })
+
+          var groupOffset = getPathStartPoint(
+            document.querySelector('svg'),
+            document.querySelector('g#' + treeId)
+          )
+          var childX = groupOffset.x
+          var childY = groupOffset.y
+
+          // d3.select('#' + treeId)
+          //   .selectAll('.join-link')
+          //   .data([targetEntry])
+          //   .enter()
+          //   .append('path')
+          //   .attr('fill', 'none')
+          //   .attr('stroke-width', 3)
+          //   .attr('d', (d) => {
+          //     return diagonalXY(originPoint, targetPosition)
+          //   })
+          //   .attr('transform', `translate(${-childX}, ${-childY})`)
+          //   .attr('stroke', 'none')
+          //   .transition()
+          //   .duration(1000)
+          //   .delay((d) => {
+          //     console.log('join delay', delayTime(d))
+          //     return delayTime(d)
+          //   })
+          //   .attr('stroke', '#ccc')
+          //   .attr('stroke-dashoffset', 0)
+          //   .transition()
+
+          d3.select('#' + treeId)
+            .selectAll('.join-link')
+            .data([targetEntry])
+            // .data([{ id: joinId, birth_year: birthYear }])
+            .enter()
+            .append('path')
+            .attr('fill', 'none')
+            .attr('stroke-width', 3)
+            // .attr('class', `link join-link`)
+            .attr('d', (d) => {
+              return diagonalXY(originPoint, targetPosition)
+            })
+            .attr('transform', `translate(${-childX}, ${-childY})`)
+            // .lower()
+            .attr('stroke', '#ccc')
+            // .attr('stroke-dashoffset', -1 * pathLength)
+            .attr('stroke-dasharray', function () {
+              pathLength = this.getTotalLength()
+              return 1.0 * pathLength
+            })
+            .attr('stroke-dashoffset', function () {
+              pathLength = this.getTotalLength()
+              return 1.0 * pathLength
+            })
+            .transition()
+            .duration(400)
+            .on('start', function () {
+              pathLength = this.getTotalLength()
+              d3.active(this)
+                .attr('stroke-dashoffset', 1 * pathLength)
+                .transition()
+                .delay((d) => delayTime(d))
+                .attr('stroke-dashoffset', 0)
+                .transition()
+            })
+
+          // end
+        }
       }
     } catch (err) {
       console.log('joinCrossoverBranches error', err)
@@ -112,4 +239,24 @@ function joinCrossoverBranches() {
 
     //
   })
+}
+
+var yearToMilliseconds = d3
+  .scaleLinear()
+  //   .domain([1835, 1990])
+  .domain([1885, 1990])
+  .range([10, 29000])
+
+function delayTime(d) {
+  if (10 === 0) {
+    return 0
+  } else {
+    var pseudoYear = d.data.birth_year || d.data.birth_year_est || 1800
+    if (pseudoYear < 1885) pseudoYear = 1885
+    var ret = 2 + Math.round(yearToMilliseconds(pseudoYear))
+    if (ret < 1000) {
+      console.log(d.data.name, d.data.birth_year, ret)
+    }
+    return ret
+  }
 }
