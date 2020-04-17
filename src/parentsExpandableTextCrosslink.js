@@ -256,6 +256,7 @@ function drawNFTree({
       .attr('jid', (d) => d.data.id || 'nil')
       .attr('data--join-id', (d) => d.data[joinId] || null)
       .on('click', click)
+      .raise()
 
     // adds the text to the node
     // 6
@@ -287,6 +288,7 @@ function drawNFTree({
     // 8
     nodeUpdate
       .style('fill-opacity', 0)
+      .style('stroke-opacity', 0)
       .transition()
       .duration(TRANSIDATION)
       .attr('transform', (d) => 'translate(' + d.y + ',' + d.x + ')')
@@ -295,6 +297,7 @@ function drawNFTree({
           .transition()
           .delay((d) => delayTime(d))
           .style('fill-opacity', 1)
+          .style('stroke-opacity', 1)
           .transition()
       })
 

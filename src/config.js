@@ -198,6 +198,7 @@ A.unionsMcGlynn = {
         { name: 'Margaret "Maude" (Sr Carmel)', birth_year: 1911 - 5 },
         { name: 'Patrick "Pádraig"', birth_year: 1911 - 2 },
         { name: 'Tommy', birth_year_est: 1911 - -1 },
+        { name: 'Nora (Sr Rita)', birth_year_est: 1912 },
       ],
     },
   ],
@@ -309,7 +310,7 @@ A.unionsDooher = {
                   birth_year: 1952,
                   children: [
                     {
-                      name: 'Gerald Dooher & Rosemary MacCullough',
+                      name: 'Gerald Dooher & Rosemary McCullagh',
                       birth_year: 1975,
                       home: 'Corte Madera, Calif.',
                       children: [

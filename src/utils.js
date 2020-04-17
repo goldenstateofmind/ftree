@@ -71,7 +71,6 @@ function formatPersonInfo(obj) {
   var lines = []
   lines.push(`<span class="fullname">${obj.name}</span>`)
 
-  var yearsInfo = ''
   var birthYear = obj.birth_year || obj.birth_year_est || ''
   var deathYear = obj.death_year || obj.death_year_est || ''
   var ageInfo = ''
@@ -79,7 +78,11 @@ function formatPersonInfo(obj) {
     ageInfo = '(' + (deathYear - birthYear) + ')'
   }
   if (birthYear != '' || deathYear != '') {
-    lines.push(`${birthYear}&ndash;${deathYear} ${ageInfo}`)
+    if (obj.name.includes('&')) {
+      lines.push(`m. ${birthYear}`)
+    } else {
+      lines.push(`${birthYear}&ndash;${deathYear} ${ageInfo}`)
+    }
   }
 
   if (obj.home) lines.push(obj.home)
@@ -101,9 +104,13 @@ function formatPersonInfoText(obj) {
     ageInfo = '(' + (deathYear - birthYear) + ')'
   }
   if (birthYear != '' || deathYear != '') {
-    lines.push(
-      `<tspan x="6" dy="1.2em">${birthYear}&ndash;${deathYear} ${ageInfo}</tspan>`
-    )
+    if (obj.name.includes('&')) {
+      lines.push(`<tspan x="6" dy="1.2em">m. ${birthYear}?</tspan>`)
+    } else {
+      lines.push(
+        `<tspan x="6" dy="1.2em">${birthYear}&ndash;${deathYear} ${ageInfo}</tspan>`
+      )
+    }
   }
 
   if (obj.home) lines.push(`<tspan x="6" dy="1.2em">${obj.home}</tspan>`)
@@ -206,6 +213,7 @@ function joinCrossoverBranches() {
             .attr('d', (d) => {
               return diagonalXY(originPoint, targetPosition)
             })
+            .lower()
             .attr('transform', `translate(${-childX}, ${-childY})`)
             // .lower()
             .attr('stroke', '#ccc')
