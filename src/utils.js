@@ -93,7 +93,9 @@ function formatPersonInfo(obj) {
 }
 
 function formatPersonInfoText(obj) {
+  A.personCount += 1
   var lines = []
+  // lines.push(`<tspan class="fullname">${obj.name}</tspan>`)
   lines.push(`<tspan class="fullname">${obj.name}</tspan>`)
 
   var yearsInfo = ''
@@ -105,38 +107,25 @@ function formatPersonInfoText(obj) {
   }
   if (birthYear != '' || deathYear != '') {
     if (obj.name.includes('&')) {
-      lines.push(`<tspan x="6" dy="1.2em">m. ${birthYear}?</tspan>`)
+      lines.push(
+        `<tspan class="misc-info" x="6" dy="1.2em">m. ${birthYear}?</tspan>`
+      )
     } else {
       lines.push(
-        `<tspan x="6" dy="1.2em">${birthYear}&ndash;${deathYear} ${ageInfo}</tspan>`
+        `<tspan class="misc-info" x="6" dy="1.2em">${birthYear}&ndash;${deathYear} ${ageInfo}</tspan>`
       )
     }
   }
 
-  if (obj.home) lines.push(`<tspan x="6" dy="1.2em">${obj.home}</tspan>`)
+  if (obj.home)
+    lines.push(`<tspan class="misc-info" x="6" dy="1.2em">${obj.home}</tspan>`)
   if (obj.url)
-    lines.push(`<tspan x="6" dy="1.2em"><a href=${obj.url}>census</a></tspan>`)
-
-  //   var bornInfo = []
-  //   bornInfo.push(obj.born || null)
-  //   bornInfo.push(obj.birth_location || null)
-
-  //   bornInfo = bornInfo.filter(x => x)
-  //   if (bornInfo.length > 0) {
-  //     lines.push('born ' + bornInfo.join(', '))
-  //   }
-
-  //   var deathInfo = []
-  //   deathInfo.push(obj.died || null)
-  //   deathInfo.push(obj.cause_of_Death || null)
-
-  //   deathInfo = deathInfo.filter(x => x)
-  //   if (deathInfo.length > 0) {
-  //     lines.push('died ' + deathInfo.join(', '))
-  //   }
+    lines.push(
+      `<tspan class="misc-info" x="6" dy="1.2em"><a href=${obj.url}>census</a></tspan>`
+    )
 
   lines = lines.filter((x) => x)
-  return lines.join('<br>')
+  return lines.join('')
 }
 
 function joinCrossoverBranches() {
@@ -178,28 +167,6 @@ function joinCrossoverBranches() {
           )
           var childX = groupOffset.x
           var childY = groupOffset.y
-
-          // d3.select('#' + treeId)
-          //   .selectAll('.join-link')
-          //   .data([targetEntry])
-          //   .enter()
-          //   .append('path')
-          //   .attr('fill', 'none')
-          //   .attr('stroke-width', 3)
-          //   .attr('d', (d) => {
-          //     return diagonalXY(originPoint, targetPosition)
-          //   })
-          //   .attr('transform', `translate(${-childX}, ${-childY})`)
-          //   .attr('stroke', 'none')
-          //   .transition()
-          //   .duration(1000)
-          //   .delay((d) => {
-          //     console.log('join delay', delayTime(d))
-          //     return delayTime(d)
-          //   })
-          //   .attr('stroke', '#ccc')
-          //   .attr('stroke-dashoffset', 0)
-          //   .transition()
 
           d3.select('#' + treeId)
             .selectAll('.join-link')
@@ -253,10 +220,11 @@ var yearToMilliseconds = d3
   .scaleLinear()
   //   .domain([1835, 1990])
   .domain([1885, 1990])
-  .range([10, 29000])
+  .range([10, TIMELINE_TIME_MS]) // 29 seconds
+// .range([10, 2900]) // 3 seconds
 
 function delayTime(d) {
-  if (10 === 0) {
+  if (!ANIMATE) {
     return 0
   } else {
     var pseudoYear = d.data.birth_year || d.data.birth_year_est || 1800

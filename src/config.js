@@ -1,4 +1,5 @@
 var A = {}
+A.personCount = 0
 
 A.colors = {
   '538': [
@@ -98,28 +99,88 @@ A.unionsKelly = {
                       birth_year: 1962,
                       home: 'Cork',
                       children: [
-                        { name: 'Rita', birth_year: 1963 },
-                        { name: 'Mary', birth_year: 1964 },
-                        { name: 'Helen', birth_year: 1967 },
-                        { name: 'Sarah', birth_year: 1972 },
+                        {
+                          name: 'Rita McCormack',
+                          birth_year: 1963,
+                          children: [
+                            { name: 'boy', birth_year: 2000 },
+                            { name: 'boy', birth_year: 2000 },
+                            { name: 'girl', birth_year: 2000 },
+                          ],
+                        },
+                        {
+                          name: 'Mary Veenstra-Silk',
+                          birth_year: 1964,
+                          home: 'Co. Galway',
+                          married: '1995 Bauke Veenstra',
+                          children: [
+                            { name: 'boy?', birth_year: 2000 },
+                            { name: 'girl?', birth_year: 2000 },
+                          ],
+                        },
+                        {
+                          name: "Helen O'Grady",
+                          birth_year: 1967,
+                          married: '1997 Ultan ',
+                          children: [
+                            { name: 'boy', birth_year: 2000 },
+                            { name: 'girl', birth_year: 2000 },
+                          ],
+                        },
+                        { name: 'Sarah', birth_year: 1972, home: 'Co. Galway' },
                       ],
                     },
                   ],
                 },
-                { name: 'Peter', birth_year: 1930, death_year: 2013 },
+                {
+                  name: 'Peter',
+                  birth_year: 1930,
+                  death_year: 2013,
+                  married: '1979 Kathleen E. Farrell',
+                },
                 {
                   name: 'Tony',
                   birth_year: 1932,
                   children: [
                     {
-                      name: 'Tony Kelly & Mary ?',
+                      name: 'Tony Kelly & Mary Carroll',
                       birth_year: 1960,
                       home: 'Ballycoony, Loughrea, Galway',
                       children: [
-                        { name: 'Patrick', birth_year: 1961 },
-                        { name: 'Maureen', birth_year: 1963 },
+                        {
+                          name: 'Patrick',
+                          birth_year: 1961,
+                          home: 'Ballycooney, Loughrea, Co Galway',
+                          married: 'Clare',
+                          children: [
+                            { name: 'Rory', birth_year: 2000 },
+                            { name: 'Lughaidh (Louis)', birth_year: 2000 },
+                            { name: 'Olivia', birth_year: 2000 },
+                            { name: 'Isabel', birth_year: 2000 },
+                          ],
+                        },
+                        {
+                          name: 'Maureen',
+                          birth_year: 1963,
+                          home: '',
+                          married: '1991 Jacques Chahin',
+                          children: [
+                            { name: 'Caitrina', birth_year: 1991 },
+                            { name: 'Jacques Anthony', birth_year: 2000 },
+                            { name: 'Declan', birth_year: 2000 },
+                          ],
+                        },
                         { name: 'Carmel', birth_year: 1966 },
-                        { name: 'Caroline', birth_year: 1968 },
+                        {
+                          name: 'Caroline',
+                          birth_year: 1968,
+                          home: '',
+                          married: '1995 Randy Worcester',
+                          children: [
+                            { name: 'Jonah', birth_year: 1995 },
+                            { name: 'Ellie', birth_year: 2000 },
+                          ],
+                        },
                       ],
                     },
                   ],
@@ -132,15 +193,26 @@ A.unionsKelly = {
                     // A.nuclear['1971-Kelly-Dooher'],
                     {
                       name: 'Martin Kelly & Mary Dooher',
-                      birth_year: 1973,
+                      birth_year: 1971,
                       home: 'Martinez, Calif.',
                       id: 'JOINID-1971-Kelly-Dooher',
                       //   join_id: 'JOINID-1971-Kelly-Dooher',
                       pm: 'parents',
                       children: [
-                        { name: 'Brendan', birth_year: 1974 },
+                        {
+                          name: 'Brendan',
+                          birth_year: 1974,
+                          children: [{ name: 'Mila', birth_year: 2016 }],
+                        },
                         { name: 'John', birth_year: 1976 },
-                        { name: 'Martina', birth_year: 1980 },
+                        {
+                          name: 'Martina',
+                          birth_year: 1980,
+                          children: [
+                            { name: 'Thomas', birth_year: 2015 },
+                            { name: 'Neave', birth_year: 2017 },
+                          ],
+                        },
                         { name: 'Peter', birth_year: 1985 },
                       ],
                     },
@@ -176,8 +248,10 @@ A.unionsMcGlynn = {
         'http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Caheratrim/1386487/',
       father: 'Peter McGlynn, born: 1901-44 = 1857',
       mother: 'Mary Monaghan, born: 1901-29 = 1872',
-      // http://www.census.nationalarchives.ie/pages/1911/Galway/Aille/Cahercrea__East/463513/
-      // http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Cahererea_East/1386497/
+      url_maternal:
+        'http://www.census.nationalarchives.ie/pages/1911/Galway/Aille/Cahercrea__East/463513/',
+      url_maternal2:
+        'http://www.census.nationalarchives.ie/pages/1901/Galway/Aille/Cahererea_East/1386497/',
       grandmother: 'Bridget (Kelly?), born: 1901-70 = 1831',
       children: [
         {
@@ -194,11 +268,11 @@ A.unionsMcGlynn = {
           birth_year: 1911 - 9,
           home: '   Roxborough, Co. Galway',
         },
-        { name: 'Teresa "Tessie" (Sr Antony)', birth_year: 1911 - 10 },
+        { name: 'Teresa "Tessie" (Sr Anthony)', birth_year: 1911 - 10 },
         { name: 'Margaret "Maude" (Sr Carmel)', birth_year: 1911 - 5 },
         { name: 'Patrick "Pádraig"', birth_year: 1911 - 2 },
-        { name: 'Tommy', birth_year_est: 1911 - -1 },
-        { name: 'Nora (Sr Rita)', birth_year_est: 1912 },
+        { name: 'Nora (Sr Rita)', birth_year_est: 1912, death_year: 1945 },
+        { name: 'Tommy', birth_year_est: 1913 },
       ],
     },
   ],
@@ -229,8 +303,9 @@ A.unionsDooher = {
         { name: 'Francis Hugh Dooher', birth_year: 1907, death_year: 1977 },
         {
           name: 'Rose Eileen "Rosaleen" (Sr Gerard)',
+          home: 'El Cerrito',
           birth_year: 1908,
-          death_year: '19??',
+          death_year: 1994,
         },
         {
           name: 'Arthur (Leonard)',
@@ -242,7 +317,7 @@ A.unionsDooher = {
               birth_year: 1938,
               id: 'JOINID-19XX-Dooher-Hannigan',
               home:
-                '<a href="https://www.google.com/maps/@54.8050318,-7.4141031,3a,75y,67.08h,80.38t/data=!3m6!1e1!3m4!1s_wrKs9Piv733VNgfhxLTXw!2e0!7i13312!8i6656">8? Ligford Rd, Cavanalee</a>, Strabane, Tyrone',
+                '<a href="https://www.google.com/maps/@54.8050318,-7.4141031,3a,75y,67.08h,80.38t/data=!3m6!1e1!3m4!1s_wrKs9Piv733VNgfhxLTXw!2e0!7i13312!8i6656">8 Ligford Rd, Cavanalee</a>, Strabane, Tyrone',
               pm: 'maternal-parents',
               children: [
                 {
@@ -259,13 +334,56 @@ A.unionsDooher = {
                   children: [
                     {
                       name: 'Paddy Dooher & Eileen Kelly',
-                      birth_year: 1969,
+                      birth_year: 1967,
                       home: 'Cavanalee, Strabane, Tyrone',
                       children: [
-                        { name: 'Geraldine', birth_year: 1970 },
-                        { name: 'Margaret "Elaine"', birth_year: 1971 },
-                        { name: 'Kevin', birth_year: 1974 },
-                        { name: 'Sean', birth_year: 1978 },
+                        {
+                          name: 'Geraldine',
+                          birth_year: 1970,
+                          married: 'Kevin Magill',
+                        },
+                        {
+                          name: 'Margaret "Elaine"',
+                          birth_year: 1971,
+                          married: 'Martin McDonnell',
+                          home: 'Dungiven, Derry',
+                          children: [
+                            { name: 'Aaron Fox', birth_year: 1990 },
+                            { name: 'Luke McDonnell', birth_year: 2002 },
+                            { name: 'Calum McDonnell', birth_year: 2006 },
+                          ],
+                        },
+                        {
+                          name: 'Kevin',
+                          birth_year: 1974,
+                          children: [
+                            {
+                              name: 'Ellie Boland-Dooher',
+                              birth_year: 2002,
+                              home: 'Dublin',
+                            },
+                            {
+                              name: 'Kelsey Dooher',
+                              birth_year: 2014,
+                              home: 'England',
+                            },
+                            {
+                              name: 'Kaitlynn Dooher',
+                              birth_year: 2016,
+                              home: 'England',
+                            },
+                          ],
+                        },
+                        {
+                          name: 'Sean',
+                          birth_year: 1978,
+                          married: 'Joanne Dougherty',
+                          home: 'Armagh',
+                          children: [
+                            { name: 'Noah', birth_year: 2016 },
+                            { name: 'Amy', birth_year: 2018 },
+                          ],
+                        },
                       ],
                     },
                   ],
@@ -297,8 +415,26 @@ A.unionsDooher = {
                       birth_year: 1970,
                       home: 'Strabane, Tyrone',
                       children: [
-                        { name: 'Andrea', birth_year: 1972 },
-                        { name: 'Gary', birth_year: 1975 },
+                        {
+                          name: 'Andrea',
+                          birth_year: 1972,
+                          married: '1997 Gary Wallace',
+                          home: 'Strabane',
+                          children: [
+                            { name: 'Isla Wallace', birth_year: 2000 },
+                          ],
+                        },
+                        {
+                          name: 'Gary',
+                          birth_year: 1975,
+                          home: 'England',
+                          married: '',
+                          children: [
+                            { name: 'boy', birth_year: 2000 },
+                            { name: 'boy', birth_year: 2000 },
+                            { name: 'girl', birth_year: 2000 },
+                          ],
+                        },
                         { name: 'David', birth_year: 1978 },
                         { name: 'Julie', birth_year: 1982 },
                       ],
@@ -306,16 +442,31 @@ A.unionsDooher = {
                   ],
                 },
                 {
-                  name: 'Francis (Gerald)',
+                  name: 'Francis (Gerard)',
                   birth_year: 1952,
                   children: [
                     {
-                      name: 'Gerald Dooher & Rosemary McCullagh',
+                      name: 'Gerard Dooher & Rosemary McCullagh',
                       birth_year: 1975,
                       home: 'Corte Madera, Calif.',
                       children: [
-                        { name: 'Seamus', birth_year: 1980 },
-                        { name: 'Michael', birth_year: 1985 },
+                        {
+                          name: 'Seamus',
+                          birth_year: 1980,
+                          home: 'Novato, Calif',
+                          married: '2006 Sarah Hicks',
+                          children: [
+                            { name: 'Peyton', birth_year: 2011 },
+                            { name: 'Emerson', birth_year: 2013 },
+                          ],
+                        },
+                        {
+                          name: 'Michael',
+                          birth_year: 1985,
+                          home: 'Lafayette, Calif',
+                          married: '2018 Kaylin',
+                          children: [{ name: 'Caroline', birth_year: 2019 }],
+                        },
                       ],
                     },
                   ],

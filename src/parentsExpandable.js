@@ -4,7 +4,8 @@
 
 const GENERATION_WIDTH = 280
 const duration = 750
-var i = 0
+// var i = 0
+var personCount = 0
 
 /* 
 Works, but doesn't balance patriarchy, matriarchy:

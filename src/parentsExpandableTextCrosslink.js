@@ -3,12 +3,6 @@
 // http://www.census.nationalarchives.ie/pages/1911/Tyrone/Camus/Cavanalee/849969/
 // https://stackoverflow.com/questions/31245751/how-do-you-create-a-family-tree-in-d3-js
 
-const GENERATION_WIDTH = 280
-const duration = 750
-var i = 0
-var DELAY = 10
-var TRANSIDATION = 1000
-
 var yearToMilliseconds = d3
   .scaleLinear()
   //   .domain([1835, 1990])
@@ -21,12 +15,6 @@ var yearToMilliseconds = d3
 //   })
 //   .then((data) => {
 
-var fullWidth = 3000
-var fullHeight = 2000
-var margin = { top: 20, right: 100, bottom: 30, left: 90 },
-  innerWidth = fullWidth - margin.left - margin.right,
-  innerHeight = fullHeight - margin.top - margin.bottom
-
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
@@ -37,118 +25,18 @@ var svg = d3
   .attr('width', fullWidth)
   .attr('height', fullHeight)
 
-const heightMcGlynn = 380
-const heightKelly = 650
-const heightDooher = 650
-const heightHannigan = 300
-
-const offsetYGeneric = 150
-const offsetYKelly = -450
-const offsetYDooher = 130
-const offsetYHannigan = -200
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsKelly,
-  treeId: 'unionsKelly',
-  //   joinId: 'id',
-  fullWidth: fullWidth,
-  fullHeight: heightKelly,
-  offsetY: heightKelly + offsetYKelly,
-  classProp: 'pm',
+Object.values(A.trees).forEach((T) => {
+  drawNFTree({
+    parentSVG: svg,
+    data: T,
+    treeId: T.tid,
+    joinId: 'join_id',
+    fullWidth: T.width,
+    fullHeight: T.height,
+    offsetY: T.offsetY,
+    classProp: 'pm',
+  })
 })
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsMcGlynn,
-  treeId: 'unionsMcGlynn',
-  joinId: 'join_id',
-  fullWidth: fullWidth,
-  fullHeight: heightMcGlynn,
-  offsetY: 0,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsMonaghan,
-  treeId: 'unionsMonaghan',
-  joinId: 'join_id',
-  fullWidth: fullWidth,
-  fullHeight: 200,
-  offsetY: 0,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsShiel,
-  treeId: 'unionsShiel',
-  joinId: 'join_id',
-  fullWidth: fullWidth,
-  fullHeight: 200,
-  offsetY: heightKelly - offsetYGeneric,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsDooher,
-  treeId: 'unionsDooher',
-  joinId: 'join_id',
-  fullWidth,
-  fullHeight: heightDooher,
-  offsetY: heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsMcGurk,
-  treeId: 'unionsMcGurk',
-  joinId: 'join_id',
-  fullWidth: fullWidth,
-  fullHeight: 200,
-  offsetY:
-    heightKelly + heightMcGlynn + offsetYKelly + offsetYDooher + offsetYGeneric,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsHannigan,
-  treeId: 'unionsHannigan',
-  joinId: 'join_id',
-  fullWidth,
-  fullHeight: heightHannigan,
-  offsetY:
-    heightKelly +
-    heightMcGlynn +
-    heightDooher +
-    offsetYKelly +
-    offsetYDooher +
-    offsetYHannigan,
-  classProp: 'pm',
-})
-
-drawNFTree({
-  parentSVG: svg,
-  data: A.unionsTemple,
-  treeId: 'unionsTemple',
-  joinId: 'join_id',
-  fullWidth: fullWidth,
-  fullHeight: 200,
-  offsetY:
-    heightKelly +
-    heightMcGlynn +
-    heightDooher +
-    offsetYKelly +
-    offsetYDooher +
-    offsetYHannigan +
-    offsetYGeneric,
-  classProp: 'pm',
-})
-// })
 
 function drawNFTree({
   parentSVG,
@@ -185,25 +73,35 @@ function drawNFTree({
   root.x0 = innerHeight / 2
   root.y0 = 0
 
+  function collapseLevel(d, depth) {
+    if (d.children && d.depth > 5) {
+      d._children = d.children
+      d._children.forEach(collapseLevel)
+      d.children = null
+    } else if (d.children) {
+      d.children.forEach(collapseLevel)
+    }
+  }
+
+  // Toggle children on click.
+  function click(d) {
+    console.log('click', d)
+    if (d.children) {
+      d._children = d.children
+      d.children = null
+    } else {
+      d.children = d._children
+      d._children = null
+    }
+    update(d)
+  }
+
   // Collapse after the second level
   if (root.children) {
-    // root.children.forEach(collapse)
+    root.children.forEach(collapseLevel)
   }
 
   update(root, joinId)
-  // First set the parent object in each data object:
-
-  //   function collapse(d) {
-  //     if (d.children) {
-  //       d._children = d.children
-  //       //set the parent object in all the children
-  //       d._children.forEach(function (d1) {
-  //         d1.parent = d
-  //         collapse(d1)
-  //       })
-  //       d.children = null
-  //     }
-  //   }
 
   function update(source, joinId) {
     // Remove any crossover branches
@@ -255,7 +153,7 @@ function drawNFTree({
       .attr('r', 4)
       .attr('jid', (d) => d.data.id || 'nil')
       .attr('data--join-id', (d) => d.data[joinId] || null)
-      .on('click', click)
+      // .on('click', click)
       .raise()
 
     // adds the text to the node
@@ -362,7 +260,6 @@ function drawNFTree({
       //   .style('stroke', '#2af')
       .attr('d', function (d) {
         pathLength = this.getTotalLength()
-        console.log(pathLength)
         return diagonal(d, d.parent)
       })
       .attr('stroke-dasharray', function () {
@@ -389,6 +286,8 @@ function drawNFTree({
       })
       .on('end', (x) => {
         joinCrossoverBranches()
+        // ANIMATE = false
+        // TRANSIDATION = 0
       })
 
     // linkUpdate
@@ -428,17 +327,17 @@ function drawNFTree({
       return path
     }
 
-    // Toggle children on click.
-    function click(d) {
-      console.log('click', d)
-      if (d.children) {
-        d._children = d.children
-        d.children = null
-      } else {
-        d.children = d._children
-        d._children = null
-      }
-      update(d)
-    }
-  }
+    // // Toggle children on click.
+    // function click(d) {
+    //   console.log('click', d)
+    //   if (d.children) {
+    //     d._children = d.children
+    //     d.children = null
+    //   } else {
+    //     d.children = d._children
+    //     d._children = null
+    //   }
+    //   update(d)
+    // }
+  } // end update()
 }

@@ -1,5 +1,6 @@
 body,
-text {
+text,
+tspan {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 12px;
 }
@@ -60,7 +61,7 @@ tspan a {
   fill: none;
   stroke: #ccc;
   stroke-opacity: 0.9;
-  stroke-width: 5px;
+  stroke-width: 3px;
 }
 
 .decision {
