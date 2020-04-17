@@ -66,9 +66,10 @@ function getPathStartPoint(parentSVG, element) {
   var position = point.matrixTransform(matrix)
   return position
 }
-
-function formatPersonInfo(obj) {
+/* 
+function formatPersonInfoHTML(obj) {
   var lines = []
+
   lines.push(`<span class="fullname">${obj.name}</span>`)
 
   var birthYear = obj.birth_year || obj.birth_year_est || ''
@@ -91,8 +92,10 @@ function formatPersonInfo(obj) {
   lines = lines.filter((x) => x)
   return lines.join('<br>')
 }
-
+ */
 function formatPersonInfoText(obj) {
+  if (!obj.name) return ''
+
   A.personCount += 1
   var lines = []
   // lines.push(`<tspan class="fullname">${obj.name}</tspan>`)
@@ -230,7 +233,7 @@ function delayTime(d) {
     var pseudoYear = d.data.birth_year || d.data.birth_year_est || 1800
     if (pseudoYear < 1885) pseudoYear = 1885
     var ret = 2 + Math.round(yearToMilliseconds(pseudoYear))
-    if (ret < 1000) {
+    if (ret < 400) {
       console.log(d.data.name, d.data.birth_year, ret)
     }
     return ret

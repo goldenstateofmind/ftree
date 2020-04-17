@@ -51,6 +51,7 @@ function drawNFTree({
   flowDir = 'left-to-right',
   classProp = 'class',
 } = {}) {
+  // console.log(treeId)
   var margin = { top: 20, right: 100, bottom: 30, left: 90 },
     innerWidth = fullWidth - margin.left - margin.right,
     innerHeight = fullHeight - margin.top - margin.bottom

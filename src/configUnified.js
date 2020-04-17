@@ -957,7 +957,6 @@ A.trees = {
     children: [],
     generation: 1,
   },
-  generation: 1,
 }
 
 var setDepths = function (tree) {
